@@ -1,7 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <omp.h>
- 
+
+void func_1()
+{
+	#pragma omp target enter data map(alloc:a)
+}
+
+void func_2()
+{
+	#pragma omp target exit data map(delete:a)
+}
+
 int main(int argc, char* argv[])
 {
 	int a = 1;
