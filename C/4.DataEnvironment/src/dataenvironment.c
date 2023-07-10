@@ -1,3 +1,8 @@
+/**
+ * @file dataenvironment.c
+ * @author Ludovic Capelli (l.capelli@epcc.ed.ac.uk)
+ **/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <omp.h>
@@ -15,7 +20,7 @@ int* mirror_malloc(size_t length)
 		printf("There has been a problem during the dynamic allocation of %zu bytes.\n", length);
 		exit(-1);
 	}
-	#pragma omp target enter data map(alloc:p)
+	// Allocate on the device
 	return p;
 }
 
@@ -28,25 +33,54 @@ int* mirror_malloc(size_t length)
  */
 void mirror_free(int* p)
 {
-	#pragma omp target exit data map(delete:p)
+	// Deallocate from the device
 	free(p);
 }
 
+/**
+ * @brief This program increments an array values using two separate constructs.
+ * The objective is to find alternatives ways to do it.
+ * @details Without merging the two target construct, puts data on the device
+ * through the mirror_* functions for the version A. For the version B, achieve
+ * the same effect by encapsulating both target constructs in a data
+ * environment.
+ **/
 int main(int argc, char* argv[])
 {
-	int result = 0;
-	int* a = mirror_malloc(1);
-	#pragma omp target
+	// Version A: using functions
+	int* a = mirror_malloc(2);
+	a[0] = 123;
+	a[1] = 456;
+	#pragma omp target map(tofrom:a)
 	{
-		(*a)++;
+		a[0]++;
+		a[1]++;
 	}
-	#pragma omp target
+	#pragma omp target map(tofrom:a)
 	{
-		(*a)++;
+		a[0]++;
+		a[1]++;
 	}
-	#pragma omp target from(a[0:1])
-	printf("%d = %d.\n", a);
+	printf("a[0] = %d.\n", a[0]);
+	printf("a[1] = %d.\n", a[1]);
 	mirror_free(a);
+
+	// Version B: encapsulating both targets in a data environment.
+	int b[2];
+	b[0] = 123;
+	b[1] = 456;
+	#pragma omp target map(tofrom:b)
+	{
+		b[0]++;
+		b[1]++;
+	}
+	#pragma omp target map(tofrom:b)
+	{
+		b[0]++;
+		b[1]++;
+	}
+	printf("b[0] = %d.\n", b[0]);
+	printf("b[1] = %d.\n", b[1]);
 
 	return EXIT_SUCCESS;
 }
