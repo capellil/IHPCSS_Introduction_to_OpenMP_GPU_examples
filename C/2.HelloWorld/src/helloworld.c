@@ -1,5 +1,5 @@
 /**
- * @file preamble.c
+ * @file helloworld.c
  * @brief This example is to illustrate how to offlaod execution to a target
  * device.
  * @details You will find two folders in this example, and will in all examples
@@ -9,7 +9,7 @@
  *
  * The makefile provided already sets everything up for you:
  * - To compile: `make`.
- * - To execute: `./bin/preamble`.
+ * - To execute: `./bin/helloworld`.
  *
  * If you have any questions, do not hesitate.
  * @author Ludovic Capelli (l.capelli@epcc.ed.ac.uk)
