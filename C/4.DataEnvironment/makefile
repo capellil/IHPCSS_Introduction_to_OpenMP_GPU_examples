@@ -6,10 +6,10 @@ BIN_DIR=bin
 default: all
 
 all: create_directory \
-	 $(BIN_DIR)/datamapping
+	 $(BIN_DIR)/dataenvironment
 
 create_directory:
 	@mkdir -p $(BIN_DIR)
 
-$(BIN_DIR)/datamapping: $(SRC_DIR)/datamapping.c
+$(BIN_DIR)/dataenvironment: $(SRC_DIR)/dataenvironment.c
 	$(CC) -o $@ $< $(CFLAGS)
