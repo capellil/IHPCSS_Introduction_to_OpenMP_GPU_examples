@@ -58,4 +58,4 @@ module load nvhpc/22.9 openmpi/4.0.5-nvhpc22.9
 make
 
 # Execute the program
-./bin/preamble
+./bin/datamapping
