@@ -24,11 +24,10 @@ int main(int argc, char* argv[])
 	int x = 10;
 	int b = 10;
 	int result = 0;
-	#pragma omp target map(to:a,x) map(tofrom:b) map(from:result)
-	{
-		b = 20;
-		result = a * x + b;
-	}
+	// Offload this to the device
+	b = 20;
+	result = a * x + b;
+	// End of offload
 	printf("%d * %d + %d = %d.\n", a, x, b, result);
 
 	return EXIT_SUCCESS;
