@@ -31,13 +31,10 @@ int main(int argc, char* argv[])
 		c[i] = i * 10;
 	}
 
-	#pragma omp target
+	// Offload that loop to the GPU
+	for(int i = 0; i < 10; i++)
 	{
-		// Offload that loop to the GPU
-		for(int i = 0; i < 10; i++)
-		{
-			a[i] = b[i] + c[i];
-		}
+		a[i] = b[i] + c[i];
 	}
 
 	for(int i = 0; i < 10; i++)
