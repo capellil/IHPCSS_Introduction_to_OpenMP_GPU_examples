@@ -1,5 +1,5 @@
 CC = nvc
-CFLAGS += -O3 -mp=gpu
+CFLAGS += -O2 -mp=gpu
 SRC_DIR=src
 BIN_DIR=bin
 
