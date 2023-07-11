@@ -23,10 +23,13 @@
  **/
 int main(int argc, char* argv[])
 {
+	// Find the identifier of the host device
 	int initial_device_num = 0;
-	printf("The host device is device %d.\n", omp_get_device_num);
+	printf("The host device is device %d.\n", initial_device_num);
+	// Find the number of devices
 	int num_devices = 0;
 	printf("There are %d target device(s).\n", num_devices);
+	// Find the identifier of the default device
 	int default_device_num = 0;
 	printf("The default device is device #%d.\n", default_device_num);
 	// Offload to default target device
@@ -35,8 +38,7 @@ int main(int argc, char* argv[])
 	printf("Executed from on target device #0.\n");
 	// Offload to default target device 1
 	printf("Executed from on target device #1.\n");
-	// Change default device to device 1
-	omp_set_default_device(1);
+	// Change default device to device 1, and print the default device.
 	default_device_num = 0;
 	printf("The default device is device #%d.\n", default_device_num);
 
