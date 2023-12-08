@@ -62,12 +62,12 @@ int main(int argc, char* argv[])
 	int* a = mirror_malloc(2);
 	a[0] = 123;
 	a[1] = 456;
-	#pragma omp target map(tofrom:a)
+	#pragma omp target map(tofrom:a[0:2])
 	{
 		a[0]++;
 		a[1]++;
 	}
-	#pragma omp target map(tofrom:a)
+	#pragma omp target map(tofrom:a[0:2])
 	{
 		a[0]++;
 		a[1]++;
@@ -80,12 +80,12 @@ int main(int argc, char* argv[])
 	int b[2];
 	b[0] = 123;
 	b[1] = 456;
-	#pragma omp target map(tofrom:b)
+	#pragma omp target map(tofrom:b[0:2])
 	{
 		b[0]++;
 		b[1]++;
 	}
-	#pragma omp target map(tofrom:b)
+	#pragma omp target map(tofrom:b[0:2])
 	{
 		b[0]++;
 		b[1]++;
