@@ -21,6 +21,7 @@ PROGRAM main
 	INTEGER, DIMENSION(0:9) :: a
 	INTEGER, DIMENSION(0:9) :: b
 	INTEGER, DIMENSION(0:9) :: c
+    INTEGER :: i
 
 	DO i = 0, 9
 		b(i) = i + 123
