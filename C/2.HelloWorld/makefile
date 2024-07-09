@@ -6,10 +6,14 @@ BIN_DIR=bin
 default: all
 
 all: create_directory \
-	 $(BIN_DIR)/helloworld
+	 $(BIN_DIR)/helloworld \
+	 $(BIN_DIR)/solution
 
 create_directory:
 	@mkdir -p $(BIN_DIR)
 
 $(BIN_DIR)/helloworld: $(SRC_DIR)/helloworld.c
+	$(CC) -o $@ $< $(CFLAGS)
+
+$(BIN_DIR)/solution: $(SRC_DIR)/solution.c
 	$(CC) -o $@ $< $(CFLAGS)
