@@ -45,14 +45,14 @@ PROGRAM main
 	! Version B: encapsulating both targets in a data environment.
 	b(0) = 123
 	b(1) = 456
-        !$OMP TARGET MAP(TOFROM:b)
-            b(0) = b(0) + 1
-            b(1) = b(1) + 1
-        !$OMP END TARGET
-        !$OMP TARGET MAP(TOFROM:b)
-            b(0) = b(0) + 1
-            b(1) = b(1) + 1
-        !$OMP END TARGET
+	!$OMP TARGET MAP(TOFROM:b)
+		b(0) = b(0) + 1
+		b(1) = b(1) + 1
+	!$OMP END TARGET
+	!$OMP TARGET MAP(TOFROM:b)
+		b(0) = b(0) + 1
+		b(1) = b(1) + 1
+	!$OMP END TARGET
 	WRITE(*, '(A,I0)') 'a(0) = ', b(0)
 	WRITE(*, '(A,I0)') 'a(1) = ', b(1)
 
