@@ -30,11 +30,11 @@ PROGRAM main
 	CALL mirror_malloc(a, 2)
 	a(0) = 123
 	a(1) = 456
-	!$OMP TARGET MAP(TOFROM:a)
+	!$OMP TARGET MAP(TOFROM:a(0:2))
 		a(0) = a(0) + 1
 		a(1) = a(1) + 1
 	!$OMP END TARGET
-	!$OMP TARGET MAP(TOFROM:a)
+	!$OMP TARGET MAP(TOFROM:a(0:2))
 		a(0) = a(0) + 1
 		a(1) = a(1) + 1
 	!$OMP END TARGET
@@ -45,11 +45,11 @@ PROGRAM main
 	! Version B: encapsulating both targets in a data environment.
 	b(0) = 123
 	b(1) = 456
-	!$OMP TARGET MAP(TOFROM:b)
+	!$OMP TARGET MAP(TOFROM:b(0:2))
 		b(0) = b(0) + 1
 		b(1) = b(1) + 1
 	!$OMP END TARGET
-	!$OMP TARGET MAP(TOFROM:b)
+	!$OMP TARGET MAP(TOFROM:b(0:2))
 		b(0) = b(0) + 1
 		b(1) = b(1) + 1
 	!$OMP END TARGET
