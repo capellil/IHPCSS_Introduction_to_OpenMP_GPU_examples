@@ -1,4 +1,4 @@
-n!> @file asynchronous.c
+!> @file asynchronous.c
 !> @brief This example is to illustrate how to leverage asynchronous execution.
 !> @details You will find two folders in this example, and will in all examples
 !> provided in this session:
