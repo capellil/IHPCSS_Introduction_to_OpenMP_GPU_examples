@@ -30,7 +30,6 @@ PROGRAM main
 	CALL mirror_malloc(a, 2)
 	a(0) = 123
 	a(1) = 456
-    !$OMP TARGET UPDATE TO(a(0:2))
 	!$OMP TARGET MAP(TOFROM:a)
 		a(0) = a(0) + 1
 		a(1) = a(1) + 1
@@ -39,7 +38,6 @@ PROGRAM main
 		a(0) = a(0) + 1
 		a(1) = a(1) + 1
 	!$OMP END TARGET
-    !$OMP TARGET UPDATE FROM(a(0:2))
 	WRITE(*, '(A,I0)') 'a(0) = ', a(0)
 	WRITE(*, '(A,I0)') 'a(1) = ', a(1)
 	CALL mirror_free(a);
@@ -47,7 +45,6 @@ PROGRAM main
 	! Version B: encapsulating both targets in a data environment.
 	b(0) = 123
 	b(1) = 456
-    !$OMP TARGET DATA MAP(TOFROM:b)
         !$OMP TARGET MAP(TOFROM:b)
             b(0) = b(0) + 1
             b(1) = b(1) + 1
@@ -56,7 +53,6 @@ PROGRAM main
             b(0) = b(0) + 1
             b(1) = b(1) + 1
         !$OMP END TARGET
-    !$OMP END TARGET DATA
 	WRITE(*, '(A,I0)') 'a(0) = ', b(0)
 	WRITE(*, '(A,I0)') 'a(1) = ', b(1)
 
@@ -73,7 +69,6 @@ PROGRAM main
 
 		ALLOCATE(A(0:length-1))
 		! Allocate on the device
-        !$OMP TARGET ENTER DATA MAP(ALLOC:A(0:length))
 	END SUBROUTINE mirror_malloc
 
 	!> @brief Deallocates, both on CPU and GPU, an array previously dynamically
@@ -87,7 +82,6 @@ PROGRAM main
 		INTEGER, ALLOCATABLE :: p(:)
 
 		! Deallocate from the device
-        !$OMP TARGET EXIT DATA MAP(DELETE:p)
 		DEALLOCATE(p)
 	END SUBROUTINE mirror_free
 END PROGRAM main
